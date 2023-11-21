@@ -1,4 +1,4 @@
-##PPM Backend Project
+# PPM Backend Project
 Il progetto in questione è un marketplace di prodotti videoludici, pronto per la consultazione su Railway.
 
 Funzionalità:
