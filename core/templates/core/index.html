@@ -1,0 +1,122 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+
+    <div class="mt-6 px-6 py-12 bg-blue-600 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center font-semibold"> Categories </h2>
+
+        <div class="grid grid-cols-3 gap-3 rounded-xl">
+            {% for category in categories %}
+                <div>
+                    <a href="{% url 'item:items' %}?query=&category={{ category.id }}">
+                        <div class="p-6 bg-white rounded-b-xl hover:bg-red-300 rounded-xl">
+                            <h2 class="text-xl"> {{ category.name }} </h2>
+                            <p class="text-gray-700"> Items: {{ category.items.count }} </p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="mt-6 px-6 py-12 bg-blue-600 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center font-semibold"> Newest items </h2>
+
+        <div class="grid grid-cols-3 gap-3">
+            {% for item in items %}
+                <div>
+                    <a href="{% url 'item:detail' item.id %}">
+                        <div> 
+                            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="rounded-t-xl">
+                        </div>
+
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-xl"> {{ item.name }} </h2>
+                            <p class="text-gray-700"> Category: {{ item.category.name }} </p>
+                            <p class="text-gray-700"> Price: {{ item.price }} </p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        // Quando la pagina viene caricata
+        window.addEventListener("DOMContentLoaded", function() {
+            // Controlla se l'acquisto è stato effettuato
+            var paymentSubmitted = sessionStorage.getItem("paymentSubmitted");
+            
+            // Verifica se la variabile di stato è impostata su "true"
+            if (paymentSubmitted === "true") {
+                // Visualizza il popup
+                showPopup("Payment successful");
+                
+                // Resetta la variabile di stato nell'API Web Storage
+                sessionStorage.setItem("paymentSubmitted", "false");
+            }
+        });
+
+
+        // Funzione per mostrare il popup
+        function showPopup(message) {
+            // Crea l'elemento del popup
+            var popup = document.createElement("div");
+            popup.textContent = message;
+            popup.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 30px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                font-size: 18px;
+                color: #333;
+                z-index: 9999;
+            `;
+
+            // Aggiungi il popup al body del documento
+            document.body.appendChild(popup);
+
+            // Aggiungi la classe "darken" al body per scurire il resto della pagina
+            var darkenBackground = document.createElement("div");
+            darkenBackground.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(102, 51, 153, 0.8);
+                z-index: 9998;
+            `;
+            document.body.appendChild(darkenBackground);
+
+            // Rimuovi il popup e lo sfondo scuro dopo un secondo
+            setTimeout(function() {
+                document.body.removeChild(popup);
+                document.body.removeChild(darkenBackground);
+                document.body.style.overflow = "";
+            }, 1500);
+
+            // Rimuovi il popup e lo sfondo scuro quando viene cliccato
+            var removePopup = function() {
+                document.body.removeChild(popup);
+                document.body.removeChild(darkenBackground);
+                document.body.style.overflow = "";
+            };
+
+            popup.addEventListener("click", removePopup);
+            darkenBackground.addEventListener("click", removePopup);
+
+            // Impedisci lo scrolling della pagina dietro al popup
+            document.body.style.overflow = "hidden";
+        }
+
+    </script>
+
+{% endblock %}

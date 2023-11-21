@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}My ratings:{% endblock %}
+
+{% block content %}
+<h1 class="px-6 py-3 mb-6 text-lg font-semibold bg-blue-700 text-white rounded-xl hover:bg-blue-900 relative">
+  My ratings: 
+  <span class="text-xs absolute top-3 right-0 mt-1 mr-2 text-gray-300">(click on "My ratings/reviews" to see all your feedback)</span>
+</h1>
+
+{% if ratings %}
+  <ul class="px-6 py-3 bg-gray-400 rounded-xl">
+    {% for rating in ratings %}
+      <li>
+        <div class="mb-4">
+          <span class="font-semibold">Receiver:</span> {{ rating.receiverId.username }}
+        </div> 
+        <div class="mb-4">
+          <span class="font-semibold">Score:</span> {{ rating.score }}
+        </div>
+        <hr class="border-black mb-2">
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No ratings found.</p>
+{% endif %}
+
+{% endblock %}
+

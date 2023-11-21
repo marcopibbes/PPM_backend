@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<div class="shoppingCart">
+    <h2 class="font-bold bg-blue-600 text-center rounded-xl text-xl p-4">My Cart</h2>
+
+    <div class="grid grid-cols-5 text-center font-bold bg-gray-400 rounded-xl text-xl p-4">
+        <div><h4>Image</h4></div>
+        <div><h4>Product's Name</h4></div>
+        <div><h4>Quantity</h4></div>
+        <div><h4>Unit Price</h4></div>
+        <div><h4>Price</h4></div>
+    </div>
+
+    {% for cartItem in cartItems %}
+    <div class="border border-gray-900 rounded-xl">
+        <div class="grid grid-cols-5 text-center items-center">
+            <div>
+                <img src="{{ cartItem.item.image.url }}" alt="{{ cartItem.item.name }}" class="productImage h-16 w-16 mx-auto">
+            </div>
+            <div>{{ cartItem.item.name }}</div>
+            <div>{{ cartItem.quantity }}</div>
+            <div>{{ cartItem.item.price }}</div>
+            <div class="flex items-center justify-center">
+                <span class="mr-2">{{ cartItem.total_price }}</span>
+                <button data-item-id="{{ cartItem.item.id }}" onClick= removeFromCart("{{ cartItem.item.id }}") class="flex items-center justify-center bg-transparent border-none outline-none cursor-pointer" id="removeButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M4 5a1 1 0 011-1h10a1 1 0 011 1v1H4V5zm11.293 2H4v8a2 2 0 002 2h8a2 2 0 002-2V7h-2.707zM8 9a1 1 0 00-1 1v5a1 1 0 102 0v-5a1 1 0 00-1-1zm4 0a1 1 0 00-1 1v5a1 1 0 102 0v-5a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="font-semibold text-xl border border-gray-900 bg-gray-400 rounded-xl p-2">
+        <h1>Total Price: {{ cart.totalPrice }}</h1>
+    </div>
+
+    <h2 class="font-bold bg-blue-600 text-center rounded-xl text-xl p-4">
+        <div class="flex justify-between">
+            <a href="{% url 'item:items' %}" class="px-4 py-2 bg-blue-700 text-white rounded-xl hover:bg-blue-900">Continue shopping -></a>
+            <a href="{% url 'core:checkout' %}" class="px-4 py-2 bg-blue-700 text-white rounded-xl hover:bg-blue-900">Checkout</a>
+        </div>
+    </h2>
+
+</div>
+{% endblock %}
+

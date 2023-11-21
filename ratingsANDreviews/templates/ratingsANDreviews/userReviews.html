@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}My reviews:{% endblock %}
+
+{% block content %}
+<h1 class="px-6 py-3 mb-6 text-lg font-semibold bg-blue-700 text-white rounded-xl hover:bg-blue-900 relative">
+  My reviews: 
+  <span class="text-xs absolute top-3 right-0 mt-1 mr-2 text-gray-300">(click on "My ratings/reviews" to see all your feedback)</span>
+</h1>
+
+
+{% if reviews %}
+  <ul class="px-6 py-3 bg-gray-400 rounded-xl">
+    {% for review in reviews %}
+      <li>
+        <div class="mb-4">
+          <span class="font-semibold">Receiver:</span> {{ review.receiverId.username }}
+        </div> 
+        <div class="mb-4">
+          <span class="font-semibold">"Review text":</span> {{ review.text }}
+        </div>
+        <hr class="border-black mb-2">
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No reviews found.</p>
+{% endif %}
+
+{% endblock %}

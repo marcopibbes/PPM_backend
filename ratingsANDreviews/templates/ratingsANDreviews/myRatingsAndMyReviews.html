@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block title %}My ratings and my reviews{% endblock %}
+
+{% block content %}
+<div class="flex justify-between">
+  <div class="w-1/2 pr-4">
+    <h1 class="px-6 py-3 mb-6 text-lg font-semibold bg-blue-700 text-white rounded-xl hover:bg-blue-900">My ratings:</h1>
+
+    {% if ratings %}
+      <ul class="px-6 py-3 bg-gray-400 rounded-xl">
+        {% for rating in ratings %}
+          <li>
+            <div class="mb-4">
+              <span class="font-semibold">Receiver:</span> {{ rating.receiverId.username }}
+            </div> 
+            <div class="mb-4">
+              <span class="font-semibold">Score:</span> {{ rating.score }}
+            </div>
+            <hr class="border-black mb-2">
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No ratings found.</p>
+    {% endif %}
+  </div>
+
+  <div class="w-1/2 pl-4">
+    <h1 class="px-6 py-3 mb-6 text-lg font-semibold bg-blue-700 text-white rounded-xl hover:bg-blue-900">My reviews:</h1>
+
+    {% if reviews %}
+      <ul class="px-6 py-3 bg-gray-400 rounded-xl">
+        {% for review in reviews %}
+          <li>
+            <div class="mb-4">
+              <span class="font-semibold">Receiver:</span> {{ review.receiverId.username }}
+            </div> 
+            <div class="mb-4">
+              <span class="font-semibold">"Review text":</span> {{ review.text }}
+            </div>
+            <hr class="border-black mb-2">
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No reviews found.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
