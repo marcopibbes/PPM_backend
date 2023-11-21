@@ -2,7 +2,7 @@
 Il progetto in questione è un marketplace di prodotti videoludici, pronto per la consultazione su Railway.
 
 Funzionalità:
-Ogni utente registrato può mettere in vendita un oggetto (scegliendo prezzo e categoria).
+Ogni utente registrato può mettere in vendita un oggetto (scegliendo prezzo e categoria) o comprare aggiungendo al carrello.
 E' possibile scambiare messaggi riguardanti ogni prodotto in vendita, valutazioni e recensioni, oltre che comprare ed effettuare il checkout dell'acquisto.
 
 Ho creato degli account di prova, ovviamente è possibile crearne di nuovi.
